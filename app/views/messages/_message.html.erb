@@ -1,0 +1,9 @@
+<%= turbo_frame_tag dom_id(message) do%>
+<div class="flex py-1" data-controller="message">
+  <div class="p-5 rounded-2xl w-2/5" data-message-target="container" data-message-user="<%= message.user_id%>">
+      <p><%= message.content %></p>
+      <small class="float-right"><strong><%= message.created_at&.strftime("%I: %M %p") %></strong></small>
+  </div>
+</div>
+
+<% end %>

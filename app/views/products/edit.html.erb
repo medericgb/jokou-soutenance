@@ -1,0 +1,11 @@
+<h1 class="text-4xl font-medium text-gray-700 px-3 py-5">Modifier Informations</h1>
+<%= render partial: 'form', locals: {store: @store,product: @product, submit: 'update'}%>
+
+
+<% content_for :banners do %>
+  <%=render 'shared/banners'%>
+<% end %>
+
+<% content_for :footer do %>
+  <%=render 'shared/footer'%>
+<% end %>

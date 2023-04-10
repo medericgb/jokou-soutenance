@@ -1,0 +1,41 @@
+<style>
+  .min-h{
+    min-height:35rem;
+  }
+  .h-36r{
+    height:36rem
+  }
+  </style>
+  
+  
+  
+  <div class="flex justify-center min-h bg-gray-50 mb-2 py-5">
+    <div class="w-3/6 flex px-5 py-2">
+      <div class="w-full">
+        <h3 class="text-base font-semibold text-gray-600"> 
+          Opérations <i class="fas fa-hand-holding-usd"></i>
+        </h3>
+        <div class="w-full h-64 py-10 flex overflow-hidden bg-white shadow px-14">
+          <%=render partial: 'form', locals: {transaction: @transaction }%>
+        </div>
+
+        <h3 class="text-base font-semibold text-gray-600 pt-3 pb-1"> 
+          Transactions effectuées 
+          <i class="fas fa-file-invoice-dollar"></i>
+        </h3>
+        <div class="w-full h-96 overflow-y-auto bg-white shadow">
+          <%#= render 'thead' %>
+          <div class='py-2 '>
+            <%=render partial:'accounts/transaction', collection:@transactions%>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <% content_for :banners do %>
+    <%=render 'shared/banners'%>
+  <% end %>
+  <% content_for :footer do %>
+    <%=render 'shared/footer'%>
+  <% end %>

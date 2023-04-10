@@ -1,0 +1,68 @@
+<style>
+.h-100 {
+  min-height: 28rem/* 384px */;
+}
+.h-36r{
+  height:36rem
+}
+</style>
+
+<div class="min-h-screen flex overflow-hidden">
+  <div class="<%=current_user == @store.user ? 'w-full overflow-hidden' : 'w-full overflow-hidden'%>">
+    <div class="flex py-10 justify-between items-center w-4/5 mx-auto pr-5">
+      <p class="text-4xl font-medium text-center">
+        <%= current_user == @store.user ? 'Ma boutique' : "#{@store.name}"%>
+      </p>
+      <p class="text-4xl font-medium text-center ml-16">
+      </p>
+      <%if current_user %>
+        <% if current_user && @store.user.id != current_user.id %>
+          <a href="<%= current_user ? new_store_chat_path(@store): new_user_session_path %>" class="bg-green-600 text-white px-5 py-2 rounded">
+            Ecrire
+            <i class="fad fa-paper-plane"></i>
+          </a>
+        <%else%>
+          <div class='flex justify-center items-center'>
+            <%= link_to 'Supprimer mon store', store_path(@store), data:{confirm: 'Etes vous sur de vouloir supprimer votre compte? '} ,method: :delete, class:'bg-red-600 text-white px-5 py-2 mr-2 font-medium rounded' %>
+            <%= link_to 'Ajouter un article', new_store_product_path(@store), class:'bg-green-600 text-white px-5 py-2 font-medium rounded' %>
+            <%= link_to 'Voir les avis', store_comments_path(@store), class:'bg-green-600 text-white px-5 py-2 font-medium rounded ml-2' %>
+          </div>
+        <% end %>
+      <% else %>
+        <a href="<%= new_user_session_path %>" class="bg-green-600 text-white px-5 py-2 rounded">
+          Ecrire
+          <i class="fad fa-paper-plane"></i>
+        </a>
+      <% end %>
+    </div>
+    <div class='grid grid-cols-4 gap-1 h-100 w-4/5 my-0 mx-auto'>
+      <%=render partial:'product', collection: @store_products%>
+    </div>
+    <%if current_user && current_user.store == @store%>
+      <div class="w-full py-10"> 
+        <a href="<%= bids_path %>">
+          <p class="text-3xl ml-20">Mes actions</p>
+        </a>
+        <div class="w-full flex justify-evenly items-center py-5">
+          <a href="<%= store_orders_path(@store) %>" class="text-center px-3">
+            <%=image_tag 'icons8-deliver-food-100 (1).png', class:'w-16 h-16 mx-auto'%>
+            <p class="py-8 text-lg">Commandes</p>
+          </a>
+          <a href="<%=store_bids_historic_path(@store)%>" class="text-center px-3">
+            <%=image_tag 'icons8-judge-60 (1).png', class:'w-16 h-16'%>
+            <p class="py-8 text-lg">Historiques des enchères</p>
+          </a>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+<% content_for :banners do %>
+  <%=render 'shared/banners'%>
+<% end %>
+
+<% content_for :footer do %>
+  <%=render 'shared/footer'%>
+<% end %>

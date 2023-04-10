@@ -1,0 +1,71 @@
+<style>
+.min-h{
+  min-height:35rem;
+}
+.h-36r{
+  height:36rem
+}
+.width-30{
+    width: 25%;
+}
+.width-70{
+    width: 75%;
+  }
+</style>
+
+
+
+<div class="flex justify-between min-h">
+  <div class="w-5/6 flex px-5">
+    <div class="w-2/5">
+      <p class="py-10 text-4xl">Mon profil</p>
+      <div class='block'>
+        <%if current_user.store%>
+          <%= link_to 'Editer ma boutique',edit_store_path(current_user.store), class:'w-full block m-1 font-light text-xl py-1'%>
+        <% end %>
+        <%= link_to 'Editer mon profile',edit_profile_path(current_user),class:'w-full block m-1 font-light text-xl py-1'%>
+        <%= link_to 'Operation sur mon compte',user_account_path(current_user, current_user.account),class:'w-full block m-1 font-light text-xl py-1'%>
+        <%= link_to 'Se deconnecter', destroy_user_session_path, method: :delete ,class:'w-full text-red-600 block m-1 font-medium text-xl py-1'%>
+      </div>
+    </div>
+    <div class="width-70">
+      <div class="w-full py-5 flex justify-between">
+        <p class="text-2xl font-normal text-gray-700"><%="#{current_user.first_name} #{current_user.last_name}"%></p>
+        <%if current_user.store%>
+          <a href="<%=store_path(current_user.store)%>" class="px-3 py-2 bg-red-600 text-white rounded">Ma boutique</a>
+        <% else %>
+          <a href="<%=new_store_path%>" class="px-3 py-2 bg-red-600 text-white rounded">Devenir un vendeur</a>
+        <% end %>
+      </div>
+      <div class="w-full h-64 p-5 flex justify-center items-center overflow-hidden">
+        <%if current_user.avatar.attached?%>
+          <%= image_tag current_user.avatar,class:'h-full object-cover' %>
+        <% else %>
+          <%= image_tag 'Wavy Buddies - Avatar.png',class:'h-full object-cover' %>
+        <% end %>
+      </div>
+      <div class="w-full py-10"> 
+          <p class="text-3xl">Mes commandes</p>
+        <div class="w-full flex justify-evenly items-center py-5">
+          <a href="<%= user_orders_path(current_user) %>" class="text-center px-3">
+            <%=image_tag 'icons8-deliver-food-100 (1).png', class:'w-16 h-16 mx-auto'%>
+            <p class="py-8 text-lg">Historiques des commandes</p>
+          </a>
+          <a href="<%=user_offers_historic_path(current_user)%>" class="text-center px-3">
+            <%=image_tag 'icons8-judge-60 (1).png', class:'w-16 h-16'%>
+            <p class="py-8 text-lg">Enchères</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  </div>
+</div>
+
+<% content_for :banners do %>
+  <%=render 'shared/banners'%>
+<% end %>
+<% content_for :footer do %>
+  <%=render 'shared/footer'%>
+<% end %>
